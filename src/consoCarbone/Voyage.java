@@ -6,7 +6,6 @@ public class Voyage extends ConsoCarbone{
 	private MoyenTransport moyenTransport;
 	
 	public Voyage() {
-		
 		this.nbreVoyages = 0;
 	}
 	
