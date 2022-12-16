@@ -1,7 +1,7 @@
 package consoCarbone;
 
 public enum MoyenTransport {
-	Avion(10),Train(2),Bateau(5);
+	Avion(0.5),Train(0.1),Bateau(0.25);
 	
 private double ind;
 	
