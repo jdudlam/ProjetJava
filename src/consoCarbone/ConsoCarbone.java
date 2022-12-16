@@ -1,6 +1,10 @@
 package consoCarbone;
 import java.util.Scanner;
-
+/**ConsoCarbone est la classe mere , elle resume l'impact total d'un utilisateur en fonction des impacts donnés par ses classes filles
+ * 
+ * @author theo4
+ *
+ */
 public abstract class ConsoCarbone implements Comparable<ConsoCarbone> {
 	protected double impact;
 	private final int id;

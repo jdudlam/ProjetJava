@@ -1,5 +1,9 @@
 package consoCarbone;
-
+/**La classe Transport calcul l'impact ecologique d'un utilisateur en fonction de si il possede une voiture et de son utilisation(frequemment , taille et son amortissement) 
+ * 
+ * @author theo4
+ *
+ */
 public class Transport extends ConsoCarbone {
 	private boolean possede;
 	private Taille taille;
@@ -9,6 +13,7 @@ public class Transport extends ConsoCarbone {
 	
 	public Transport() {
 		possede = false;
+		impact = 0;
 	}
 	
 	public Transport(boolean possede, Taille taille, int kilomAnnee, int amortissement) {
@@ -63,17 +68,23 @@ public class Transport extends ConsoCarbone {
 		this.amortissement = amortissement;
 	}
 
+	@Override
 	public double getImpact() {
 		return impact;
 	}
-
+/**Cette methode affiche le detail de l empreinte moyenne des francais concernant leur Transport(voiture)
+ * 
+ */
 	public static void detailEmpreinteTransport() {
     	System.out.println("Detail de l'empreinte carbonne moyenne d un francais concernant les transports en kg de CO2/an:"
     			+ "\n" + "-trains et bus : 85" + "\n" 
     			+ "-avion : 480" 
     			+ "\n" + "-fret et messagerie : 383" + "\n" + "-voiture : 1972" + "\n");
     }
-	
+	/**Cette methode redefini la methode toString
+	 *  
+	 * @return la methode renvoi une chaine de caractere donnant le detail du Transport(voiture) de l'utilisateur et donne son impact
+	 */		
 	@Override 
     public String toString() {
 		if(possede==false)
@@ -82,7 +93,10 @@ public class Transport extends ConsoCarbone {
 			return("Votre voiture est de grande taille, elle a roule " + kilomAnnee + " kilometres, vous la possedez depuis " + amortissement + " ans et son impact est " + impact);
     	return ("Votre voiture est de petite taille, elle a roule " + kilomAnnee + " kilometres, vous la possedez depuis " + amortissement + " ans et son impact est " + impact);
     }
-	
+	/**La methode implemente l'interface Comparable et compare l'impact de deux utilisateurs concernant leur Transport(voiture)
+	 * 
+	 * @return La methode renvoi 0 si les deux utilisateurs ont le meme impact, 1 si le premier utilisateur passé en argument a un plus gros impact et 2 sinon
+	 */	
 	@Override
 	public int compare(ConsoCarbone o1, ConsoCarbone o2) {
 		if(o1.getImpact()>o2.getImpact()) {
