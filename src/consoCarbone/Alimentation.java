@@ -10,13 +10,19 @@ public class Alimentation extends ConsoCarbone {
     private double impact;
 
 
-    public Alimentation(){
+    public Alimentation() {
     	txBoeuf = 0;
     	txVege = 0;
     	impact = 1.6;
     }
 
-    public Alimentation(double txBoeuf, double txVege){
+    public Alimentation(double txBoeuf, double txVege) throws  IllegalArgumentException {
+    	if(0>=txBoeuf || txBoeuf>=1) {
+    		throw new  IllegalArgumentException("Le taux de repas a base de boeuf n'est pas conforme(pas entre 0 et 1)");
+    	}
+    	if(0>=txVege || txVege>=1) {
+    		throw new  IllegalArgumentException("Le taux de repas vegetariens n'est pas conforme(pas entre 0 et 1)");
+    	}
         this.txBoeuf = txBoeuf;
         this.txVege = txVege;
         this.impact = 8 * txBoeuf + 1.6*(1-txVege-txBoeuf) + 0.9 * txVege;
@@ -26,7 +32,10 @@ public class Alimentation extends ConsoCarbone {
         return txBoeuf;
     }
 
-    public void setTxBoeuf(double txBoeuf) {
+    public void setTxBoeuf(double txBoeuf) throws  IllegalArgumentException {
+    	if(0>=txBoeuf || txBoeuf>=1) {
+    		throw new  IllegalArgumentException("Le taux de repas a base de boeuf n'est pas conforme(pas entre 0 et 1)");
+    	}
         this.txBoeuf = txBoeuf;
     }
 
@@ -34,7 +43,10 @@ public class Alimentation extends ConsoCarbone {
         return txVege;
     }
 
-    public void setTxVege(double txVege) {
+    public void setTxVege(double txVege) throws  IllegalArgumentException {
+    	if(0>=txVege || txVege>=1) {
+    		throw new  IllegalArgumentException("Le taux de repas vegetariens n'est pas conforme(pas entre 0 et 1)");
+    	}
         this.txVege = txVege;
     }
 

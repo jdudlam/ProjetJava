@@ -14,7 +14,10 @@ public class Logement extends ConsoCarbone {
 		impact =0;
 	}
 
-    public Logement(int superficie, CE ce){
+    public Logement(int superficie, CE ce) throws  IllegalArgumentException {
+    	if(superficie<=0) {
+			throw new  IllegalArgumentException("La superficie de votre logement est negative.");
+		}
         this.superficie = superficie;
         this.ce = ce;
         this.impact = ce.getInd() * superficie;
@@ -24,7 +27,10 @@ public class Logement extends ConsoCarbone {
         return superficie;
     }
 
-    public void setSuperficie(int superficie) {
+    public void setSuperficie(int superficie) throws  IllegalArgumentException {
+    	if(superficie<=0) {
+			throw new  IllegalArgumentException("La superficie de votre logement est negative.");
+		}
         this.superficie = superficie;
     }
 

@@ -16,7 +16,13 @@ public class Transport extends ConsoCarbone {
 		impact = 0;
 	}
 	
-	public Transport(boolean possede, Taille taille, int kilomAnnee, int amortissement) {
+	public Transport(boolean possede, Taille taille, int kilomAnnee, int amortissement) throws  IllegalArgumentException{
+		if(kilomAnnee<0) {
+			throw new  IllegalArgumentException("Le nombre de kilometre parcouru dans l'annee est negatif.");
+		}
+		if(amortissement<0) {
+			throw new  IllegalArgumentException("Une voiture ne peut pas etre possede depuis un nombre negatif d'annees.");
+		}
 		this.possede = possede;
 		this.taille = taille;
 		this.kilomAnnee = kilomAnnee;
@@ -56,7 +62,10 @@ public class Transport extends ConsoCarbone {
 		return kilomAnnee;
 	}
 
-	public void setKilomAnnee(int kilomAnnee) {
+	public void setKilomAnnee(int kilomAnnee) throws  IllegalArgumentException {
+		if(kilomAnnee<0) {
+			throw new  IllegalArgumentException("Le nombre de kilometre parcouru dans l'annee est negatif.");
+		}
 		this.kilomAnnee = kilomAnnee;
 	}
 
@@ -64,7 +73,10 @@ public class Transport extends ConsoCarbone {
 		return amortissement;
 	}
 
-	public void setAmortissement(int amortissement) {
+	public void setAmortissement(int amortissement) throws  IllegalArgumentException {
+		if(amortissement<0) {
+			throw new  IllegalArgumentException("Une voiture ne peut pas etre possede depuis un nombre negatif d'annees.");
+		}
 		this.amortissement = amortissement;
 	}
 

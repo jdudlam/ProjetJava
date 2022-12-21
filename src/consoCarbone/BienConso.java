@@ -13,7 +13,10 @@ public class BienConso extends ConsoCarbone {
 		impact = 0;
 	}
 	
-	public BienConso(double montant) {
+	public BienConso(double montant) throws  IllegalArgumentException {
+		if(montant<0) {
+			throw new  IllegalArgumentException("Le montant de vos dépenses en bien consommés est negatif.");
+		}
 		this.montant = montant;
 		this.impact = montant/1750;
 	}
@@ -22,7 +25,10 @@ public class BienConso extends ConsoCarbone {
 		return montant;
 	}
 
-	public void setMontant(double montant) {
+	public void setMontant(double montant) throws  IllegalArgumentException {
+		if(montant<0) {
+			throw new  IllegalArgumentException("Le montant de vos dépenses en bien consommés est negatif.");
+		}
 		this.montant = montant;
 	}
 

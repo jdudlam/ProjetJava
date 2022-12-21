@@ -14,8 +14,10 @@ public class Voyage extends ConsoCarbone{
 		this.nbreVoyages = 0;
 	}
 	
-	public Voyage(int nbreVoyages, MoyenTransport moyenTransport) {
-		super();
+	public Voyage(int nbreVoyages, MoyenTransport moyenTransport) throws  IllegalArgumentException {
+		if(nbreVoyages<0) {
+			throw new  IllegalArgumentException("Le nombre de voyages realises en une annee ne doit pas etre negatif.");
+		}
 		this.nbreVoyages = nbreVoyages;
 		this.moyenTransport = moyenTransport;
 		this.impact = nbreVoyages*moyenTransport.getInd();
@@ -30,7 +32,10 @@ public class Voyage extends ConsoCarbone{
 		return nbreVoyages;
 	}
 	
-	public void setNbreVoyages(int nbreVoyages) {
+	public void setNbreVoyages(int nbreVoyages) throws  IllegalArgumentException {
+		if(nbreVoyages<0) {
+			throw new  IllegalArgumentException("Le nombre de voyages realises en une annee ne doit pas etre negatif.");
+		}
 		this.nbreVoyages = nbreVoyages;
 	}
 	
@@ -51,7 +56,7 @@ public class Voyage extends ConsoCarbone{
 		if(nbreVoyages==0)
 			return("Vous n'avez pas voyage cette année , donc votre consomation est nulle");
 		else
-			return("Vous avez effectue " + nbreVoyages + " voyages , et votre moyen de transport prefere est le  " + moyenTransport + "et donc votre impact est de  " + impact);
+			return("Vous avez effectue " + nbreVoyages + " voyages , et votre moyen de transport prefere est le  " + moyenTransport + " et donc votre impact est de  " + impact);
     }
 	
 /**La methode implemente l'interface Comparable et compare l'impact de deux utilisateurs concernant leur Voyage

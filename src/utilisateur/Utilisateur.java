@@ -4,9 +4,12 @@ import java.util.*;
 
 import consoCarbone.Alimentation;
 import consoCarbone.BienConso;
+import consoCarbone.CE;
 import consoCarbone.Logement;
+import consoCarbone.MoyenTransport;
 import consoCarbone.ServicesPublics;
 import consoCarbone.Transport;
+import consoCarbone.Taille;
 import consoCarbone.Voyage;
 
 public class Utilisateur {
@@ -46,12 +49,111 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(String f) {
+		services = new ServicesPublics();
 		try {
-			FileInputStream fis = new FileInputStream(new File(f));
+			BufferedReader reader = new BufferedReader(new FileReader(new File(f))) ;
+			String line = reader.readLine() ;
 			
+			//alimentation
+			double txb = Double.parseDouble((line.split("\s"))[0]);
+			double txv = Double.parseDouble((line.split("\s"))[1]);
+			alimentation = new Alimentation(txb,txv);
+			
+			//bienConso
+			line = reader.readLine() ;
+			double m = Double.parseDouble(line);
+			bienConso = new BienConso(m);
+			
+			//voyages
+			line = reader.readLine() ;
+			int nbre = Integer.parseInt((line.split("\s"))[0]);
+			if(nbre==0) {
+				voyages = new Voyage();
+			}
+			else {
+				MoyenTransport mT = MoyenTransport.Avion;
+				switch((line.split("\s"))[1]) {
+				case "Train":
+					mT = MoyenTransport.Train;
+					break;
+				case "Bateau":
+					mT = MoyenTransport.Bateau;
+					break;
+				}
+				voyages = new Voyage(nbre, mT);
+			}
+			
+			//logement
+			line = reader.readLine() ;
+			logement = new ArrayList<Logement>();
+			if(line==""){
+				logement.add(new Logement());
+			}
+			else {
+				int i = 0;
+				while(i<(line.split("\s")).length) {
+					int superf = Integer.parseInt((line.split("\s"))[i]);
+					CE ce = CE.A;
+			    	switch((line.split("\s"))[++i]){
+			        	case "A":
+			        		ce = CE.A;
+			        		break;
+			        	case "B":
+			        		ce = CE.B;
+			        		break;
+			        	case "C":
+			        		ce = CE.C;
+			        		break;
+			        	case "D":
+			        		ce = CE.D;
+			        		break;
+			        	case "E":
+			        		ce = CE.E;
+			        		break;
+			        	case "F":
+			        		ce = CE.F;
+			        		break;
+			        	case "G":
+			        		ce = CE.G;
+			        		break;
+			    	}
+			    	logement.add(new Logement(superf,ce));
+			    	i++;
+				}
+			}
+			
+			//transports
+			line = reader.readLine() ;
+			transport = new ArrayList<Transport>();
+			if(line=="false"){
+				transport.add(new Transport());
+			}
+			else {
+				int j = 0;
+				while(j<(line.split("\s")).length) {
+					int kma= Integer.parseInt((line.split("\s"))[j]);
+					int amort= Integer.parseInt((line.split("\s"))[++j]);
+					Taille taille = Taille.P; 
+				    if((line.split("\s"))[++j]=="G"){
+				    	taille = Taille.G;
+				    }
+				    transport.add(new Transport(true,taille,kma,amort));
+				    j++;
+				}
+			}
 		}
 		catch(FileNotFoundException e){
 			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace() ;
+		}
+		
+		for(Logement L:logement) {
+			impLogement += L.getImpact();
+		}
+		for(Transport T:transport) {
+			impTransport += T.getImpact();
 		}
 	}
 	
