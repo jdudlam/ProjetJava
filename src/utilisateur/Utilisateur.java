@@ -54,8 +54,10 @@ public class Utilisateur {
 			BufferedReader reader = new BufferedReader(new FileReader(new File(f))) ;
 			String line = reader.readLine() ;
 			
+			
 			//alimentation
-			double txb = Double.parseDouble((line.split("\s"))[0]);
+			String strtxb = (line.split("\s"))[0];
+			double txb = Double.parseDouble(strtxb);
 			double txv = Double.parseDouble((line.split("\s"))[1]);
 			alimentation = new Alimentation(txb,txv);
 			
@@ -125,7 +127,7 @@ public class Utilisateur {
 			//transports
 			line = reader.readLine() ;
 			transport = new ArrayList<Transport>();
-			if(line=="false"){
+			if(line.equals("false")){
 				transport.add(new Transport());
 			}
 			else {
@@ -134,7 +136,7 @@ public class Utilisateur {
 					int kma= Integer.parseInt((line.split("\s"))[j]);
 					int amort= Integer.parseInt((line.split("\s"))[++j]);
 					Taille taille = Taille.P; 
-				    if((line.split("\s"))[++j]=="G"){
+				    if((line.split("\s"))[++j].equals("G")){
 				    	taille = Taille.G;
 				    }
 				    transport.add(new Transport(true,taille,kma,amort));
@@ -205,6 +207,15 @@ public class Utilisateur {
 	public void setVoyages(Voyage voyages) {
 		this.voyages = voyages;
 	}
+	
+	public double getImpLogement() {
+		return impLogement;
+	}
+
+
+	public double getImpTransport() {
+		return impTransport;
+	}
 
 	
 	public double calculerEmpreinte() {
@@ -212,10 +223,12 @@ public class Utilisateur {
 	}
 	
 	public void detaillerEmpreinte() {
-		System.out.println("Voici le detail de la consommation globale de l utilisateur:\n" + alimentation.toString() + bienConso.toString() + logement.toString() + transport.toString() + voyages.toString() +  "Et enfin l impact concernant les services publics est de 1.5 TCO2eq");
+		System.out.println("Voici le detail de la consommation globale de l utilisateur:\n" + alimentation.toString() + "\n" + bienConso.toString() + "\n" + logement.toString() + "\n" + transport.toString() + "\n" + voyages.toString() + "\n" +  "Et enfin l impact concernant les services publics est de 1.5 TCO2eq");
 		
 	}
 	
+
+
 	public void ordonneImpact() {
 		List<Double> impacts = new ArrayList<>();
 		impacts.add(alimentation.getImpact());
@@ -224,21 +237,20 @@ public class Utilisateur {
 		impacts.add(impTransport);
 		impacts.add(services.getImpact());
 		impacts.add(voyages.getImpact());
-		detaillerEmpreinte();
 		if(impacts.get(0)*800>2353) { //on considere que l impact est trop eleve quand il est 1,25 fois plus eleve que la moyenne des francais(fois 800 pour passer de tonnes a kilos)
-			System.out.println("Votre impact concernant l'alimentation est beaucoup plus élevé que la moyenne, vous pouvez revoir votre alimentation par exemple en mangeant moins de viande!");
+			System.out.println("Votre impact concernant l'alimentation est beaucoup plus eleve que la moyenne, vous pouvez revoir votre alimentation par exemple en mangeant moins de viande!");
 		}
 		if(impacts.get(1)*800>2625) { 
-			System.out.println("Votre impact concernant les biens consommés est beaucoup plus élevé que la moyenne, vous devriez revoir a la baisse vos consommations diverses, par exemple les vetements ou vos outils technologiques(ne pas changer de telephone tous les ans (:! )");
+			System.out.println("Votre impact concernant les biens consommes est beaucoup plus eleve que la moyenne, vous devriez revoir a la baisse vos consommations diverses, par exemple les vetements ou vos outils technologiques(ne pas changer de telephone tous les ans (:! )");
 		}
 		if(impacts.get(2)*800>2706) { 
-			System.out.println("Votre impact concernant le logment est beaucoup plus élevé que la moyenne, pour faire baisser votre impact vous pouvez faire des travaux pour ameliorer la classe energetique de votre logement!");
+			System.out.println("Votre impact concernant le logement est beaucoup plus eleve que la moyenne, pour faire baisser votre impact vous pouvez faire des travaux pour ameliorer la classe energetique de votre logement!");
 		}
 		if(impacts.get(3)*800>2920) { 
-			System.out.println("Votre impact concernant les transports est beaucoup plus élevé que la moyenne, vous devriez songer a utiliser des que possible des moyens de transports ecoresponsables tels que la marche, le velo ou encore les transports en commun. Vous pouvez aussi achetez une voiture moins polluante.");
+			System.out.println("Votre impact concernant les transports est beaucoup plus eleve que la moyenne, vous devriez songer a utiliser des que possible des moyens de transports ecoresponsables tels que la marche, le velo ou encore les transports en commun. Vous pouvez aussi achetez une voiture moins polluante.");
 		}
 		if(impacts.get(5)*800>1500) { 
-			System.out.println("Votre impact concernant vos voyages est beaucoup plus élevé que la moyenne, vous devriez songer a moins voyager ou utiliser de preference des moyens de transport moins polluants.");
+			System.out.println("Votre impact concernant vos voyages est beaucoup plus eleve que la moyenne, vous devriez songer a moins voyager ou utiliser de preference des moyens de transport moins polluants.");
 		}
 	}
 		

@@ -54,7 +54,7 @@ public class Voyage extends ConsoCarbone{
 	@Override 
     public String toString() {
 		if(nbreVoyages==0)
-			return("Vous n'avez pas voyage cette année , donc votre consomation est nulle");
+			return("Vous n'avez pas voyage cette annee , donc votre consomation est nulle");
 		else
 			return("Vous avez effectue " + nbreVoyages + " voyages , et votre moyen de transport prefere est le  " + moyenTransport + " et donc votre impact est de  " + impact);
     }
